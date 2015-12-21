@@ -26,9 +26,6 @@ build:
         name: install grunt-cli
         code: npm install grunt-cli
     - script:
-        name: install bower
-        code: npm install bower
-    - script:
         name: create config
         code: |
             echo "{\"domain\": \"${PHOTO_DOMAIN}\", \"authCode\": \"${AUTH_CODE}\"}" > ./tasks/config.json
