@@ -34,9 +34,8 @@ build:
             echo "{\"domain\": \"${PHOTO_DOMAIN}\", \"authCode\": \"${AUTH_CODE}\"}" > ./tasks/config.json
     # A step that executes `npm install` command
     - npm-install
-    - script:
-        name: bower install
-        code: bower install
+    # A step that executes `bower install` command
+    - bower-install
     # A step that executes `npm test` command
     - npm-test
     # Build the application
