@@ -75,7 +75,7 @@ exports.cachePhotoList = {
                         entry.name.indexOf('.jpg') > -1 ||
                         entry.name.indexOf('.jpeg') > -1
                     ) {
-                        entry.fullURL = cloudURL('file_contents' + entry.path + '/' + entry.name);
+                        entry.fullURL = cloudURL('file_contents' + entry.path + '/' + entry.name).replace(config.domain, config.localDomain);
                         images.push(entry);
                     }
                 } else {

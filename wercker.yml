@@ -52,7 +52,7 @@ deploy:
     - script:
         name: create config
         code: |
-            echo "{\"domain\": \"${PHOTO_DOMAIN}\", \"authCode\": \"${AUTH_CODE}\"}" > ./tasks/config.json
+            echo "{\"domain\": \"${PHOTO_DOMAIN}\", \"localDomain\": \"${PHOTO_LOCAL_DOMAIN}\", \"authCode\": \"${AUTH_CODE}\"}" > ./tasks/config.json
     - script:
         name: transfer application
         code: |
