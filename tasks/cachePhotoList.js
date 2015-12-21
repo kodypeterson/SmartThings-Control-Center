@@ -76,7 +76,7 @@ exports.cachePhotoList = {
                         entry.name.indexOf('.jpeg') > -1
                     ) {
                         entry.fullURL = config.localDomain.replace('http://', 'ftp://' + config.ftpUser + ':' + config.ftpPass + '@') + entry.path + '/' + entry.name;
-                        entry.fullURL = '/api/ftpProxy/?path=' + entry.path + '/' + entry.name + '&size=' + entry.size + '&http=true';
+                        entry.fullURL = '/api/ftpProxy/?path=' + entry.path + '/' + entry.name + '&size=' + entry.size + '&modified=' + entry.mtime + '&http=true';
                         images.push(entry);
                     }
                 } else {

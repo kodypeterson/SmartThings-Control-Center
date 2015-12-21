@@ -9,6 +9,9 @@ exports.ftpProxy = {
         size: {
             required: true
         },
+        modified: {
+            required: true
+        },
         http: {
             require: false
         }
@@ -19,8 +22,23 @@ exports.ftpProxy = {
     },
 
     run: function(api, data, next){
+        var d = new Date(0);
+        d.setUTCSeconds(data.params.modified);
+        var lastModified = new Date(data.connection.rawConnection.req.headers['if-modified-since']);
+
+        if (d < lastModified) {
+            data.connection.rawConnection.responseHttpCode = 304;
+            data.connection.sendMessage('');
+            return next();
+        }
+
         var config = require('../tasks/config.json');
         var server = api.servers.servers[data.connection.type];
+        var expires = new Date(new Date().getTime() + 86400 * 1000).toUTCString();
+        var cacheControl = 'max-age=' + 86400 + ', public';
+
+        data.connection.rawConnection.responseHeaders.push(['Expires', expires]);
+        data.connection.rawConnection.responseHeaders.push(['Cache-Control', cacheControl]);
 
         if (!data.params.http) {
             var JSFtp = require("jsftp");
@@ -45,7 +63,7 @@ exports.ftpProxy = {
                 var type = data.params.path.split('.');
                 type = type[type.length - 1];
 
-                server.sendFile(data.connection, null, socket, 'image/' + type, data.params.size);
+                server.sendFile(data.connection, null, socket, 'image/' + type, data.params.size, new Date().getTime());
 
                 socket.resume();
             });
@@ -56,7 +74,7 @@ exports.ftpProxy = {
             var request = require('request');
             var requestStream = request(url);
 
-            server.sendFile(data.connection, null, requestStream, 'image/' + type, data.params.size);
+            server.sendFile(data.connection, null, requestStream, 'image/' + type, data.params.size, new Date().getTime());
         }
     }
 };
