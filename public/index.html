@@ -1,28 +1,32 @@
 <html ng-app="smartControl">
-<head>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <meta http-equiv="content-language" content="en" />
-  <link rel="icon" href="/public/favicon.ico">
-  <title</title>
+  <head>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-language" content="en" />
+    <link rel="icon" href="/public/favicon.ico">
+    <title></title>
 
-  <!-- Fonts -->
+    <!-- Fonts -->
 
-  <!-- Dependencies -->
-  <link rel="stylesheet" href="/public/dependencies/bootstrap/dist/css/bootstrap.min.css" type="text/css">
-  <link rel="stylesheet" href="/public/dependencies/font-awesome/css/font-awesome.min.css" type="text/css">
-  <!-- Application -->
-  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+    <!-- Dependencies -->
+    <link rel="stylesheet" href="/public/dependencies/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/public/dependencies/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/public/dependencies/animate.css/animate.min.css" type="text/css">
+    <!-- Application -->
+    <link rel="stylesheet" href="/public/css/style.css" type="text/css">
 
 
-  <!-- Dependencies -->
-  <script src="/public/dependencies/angular/angular.min.js"></script>
-  <script src="/public/dependencies/angular-ui-router/release/angular-ui-router.min.js"></script>
-  <!-- Application -->
-  <script src="/public/javascript/app.js"></script>
-</head>
-<body>
-  Hello World
-</body>
+    <!-- Dependencies -->
+    <script src="/public/dependencies/angular/angular.min.js"></script>
+    <script src="/public/dependencies/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/public/dependencies/angular-animate/angular-animate.min.js"></script>
+    <!-- Application -->
+    <script src="/public/javascript/app.js"></script>
+  </head>
+  <body>
+    <div class="page normal-page container {{$state.current.name}}">
+      <div ui-view></div>
+      </div>
+  </body>
 </html>

@@ -4,12 +4,13 @@
     angular
         .module('smartControl', [
             // Global Dependencies
-            'ui.router'
+            'ui.router',
 
             // Directives
 
 
             // States
+            'smartControl.photoViewer'
 
         ])
         .run(SmartControlRun)

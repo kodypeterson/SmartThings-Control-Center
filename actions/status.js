@@ -18,7 +18,21 @@ exports.status = {
     data.response.id                = api.id;
     data.response.actionheroVersion = api.actionheroVersion;
     data.response.uptime            = new Date().getTime() - api.bootTime;
-    
-    next();
+
+    api.tasks.details(function(err, details){
+      api.tasks.allDelayed(function(err, delayedDetails) {
+        api.tasks.failed(0,1000, function(err, failedJobs) {
+          api.tasks.allWorkingOn(function(err, workers) {
+            data.response.queues = details.queues;
+            data.response.delayedJobs = delayedDetails;
+            data.response.failedJobs = failedJobs;
+            data.response.workers = details.workers;
+            data.response.workersWorkingOn = workers;
+
+            next(err);
+          });
+        });
+      });
+    });
   }
 };
