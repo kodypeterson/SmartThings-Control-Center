@@ -3,7 +3,18 @@
 
     angular
         .module('smartControl.photoViewer')
-        .controller('ReblSmartControlPhotoViewerCtrl', ReblSmartControlPhotoViewerCtrl);
+        .controller('ReblSmartControlPhotoViewerCtrl', ReblSmartControlPhotoViewerCtrl)
+        .directive('imageonload', function() {
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                    element.bind('load', function() {
+                        //call the function that was passed
+                        scope.$apply(attrs.imageonload);
+                    });
+                }
+            };
+        });
 
     /* @ngInject */
     function ReblSmartControlPhotoViewerCtrl($http, $timeout) {
@@ -78,6 +89,14 @@
 
         };
 
+        var forceImageTimeout = null;
+
+        vm.imageLoaded = function() {
+            $timeout.cancel(forceImageTimeout);
+            vm.currentAnimation = inAnimations[Math.floor(Math.random() * inAnimations.length)];
+            $timeout(getImage, 10000);
+        };
+
         function getImage() {
             $http.get("/api/getPhoto").success(function(response){
                 if (response.photo) {
@@ -89,10 +108,9 @@
 
                     $timeout(function() {
                         vm.img = response.photo.fullURL;
-                        $timeout(function() {
-                            vm.currentAnimation = inAnimations[Math.floor(Math.random() * inAnimations.length)];
-                            $timeout(getImage, 10000);
-                        }, 0);
+
+                        // Force New Image
+                        forceImageTimeout = $timeout(getImage, 1000);
                     }, timeout);
                 } else {
                     $timeout(getImage, 500);
