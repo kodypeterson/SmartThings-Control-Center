@@ -35,7 +35,7 @@ build:
     # A step that executes `npm install` command
     - npm-install
     # A step that executes `bower install` command
-    - bower-install
+    - plasticine/bower-install@0.0.4
     # A step that executes `npm test` command
     - npm-test
     # Build the application
