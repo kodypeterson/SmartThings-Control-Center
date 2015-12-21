@@ -9,6 +9,7 @@
                 restrict: 'A',
                 link: function(scope, element, attrs) {
                     element.bind('load', function() {
+                        console.log('LOADED');
                         //call the function that was passed
                         scope.$apply(attrs.imageonload);
                     });
@@ -110,7 +111,7 @@
                         vm.img = response.photo.fullURL;
 
                         // Force New Image
-                        forceImageTimeout = $timeout(getImage, 1000);
+                        forceImageTimeout = $timeout(getImage, 10000);
                     }, timeout);
                 } else {
                     $timeout(getImage, 500);
