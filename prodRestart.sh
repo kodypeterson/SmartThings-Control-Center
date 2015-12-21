@@ -1,0 +1,1 @@
+kill -s USR2 `cat /srv/smartthings-control-center/pids/cluster_pidfile`

@@ -1,0 +1,1 @@
+PORT=8300 NODE_ENV=production ./node_modules/.bin/actionhero startCluster --workers=2 --daemon
