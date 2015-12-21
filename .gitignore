@@ -35,3 +35,4 @@ node_modules
 public/dependencies
 
 public/app/javascript/app.js
+public/css/style.css
