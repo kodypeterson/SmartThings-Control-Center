@@ -46,6 +46,9 @@ exports.cachePhotoList = {
                     }
                     processQueue();
                 } else {
+                    api.log('[PHOTO_CACHE] ERR!!!', 'error');
+                    api.log(error, 'error');
+                    api.log(body, 'error');
                     processQueue();
                 }
             });
