@@ -75,7 +75,7 @@ exports.cachePhotoList = {
                         entry.name.indexOf('.jpg') > -1 ||
                         entry.name.indexOf('.jpeg') > -1
                     ) {
-                        entry.fullURL = cloudURL('file_contents' + entry.path + '/' + entry.name).replace(config.domain, config.localDomain);
+                        entry.fullURL = config.localDomain.replace('http://', 'ftp://' + config.ftpUser + ':' + config.ftpPass + '@') + entry.path + '/' + entry.name;;
                         images.push(entry);
                     }
                 } else {

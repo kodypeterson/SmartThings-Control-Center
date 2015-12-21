@@ -22,7 +22,15 @@
     }
 
     /* @ngInject */
-    function SmartControlConfig($urlRouterProvider, $locationProvider) {
+    function SmartControlConfig($urlRouterProvider, $locationProvider, $httpProvider) {
+        $httpProvider.interceptors.push(function ($location) {
+            return {
+                request: function (config) {
+                    return config;
+                }
+            };
+        });
+
         $urlRouterProvider.rule(function ($injector, $location) {
             var path = $location.url();
 
