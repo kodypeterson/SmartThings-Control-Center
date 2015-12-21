@@ -6,10 +6,12 @@ exports.cachePhotoList = {
     pluginOptions: [],
     frequency:     900000, // Every 15 mins
     run: function(api, params, next){
+        var config = require('./config.json');
+
         function cloudURL(path, params) {
-            var domain = 'http://cloud.kodypeterson.com';
-            var device_user_id = '19405913';
-            var device_user_auth_code = '8e19e6d4c20bc99f5fd2f9d8702db620';
+            var domain = config.domain;
+            var device_user_id = '19408415';
+            var device_user_auth_code = config.authCode;
             var param_arr = [];
             if (params) {
                 for (var i in params) {

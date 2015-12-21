@@ -25,6 +25,10 @@ build:
     - script:
         name: install grunt-cli
         code: npm install grunt-cli
+    - script:
+        name: create config
+        code: |
+            echo "{\"domain\": \"${PHOTO_DOMAIN}\", \"authCode\": \"${AUTH_CODE}\"}" > ./tasks/config.json
     # A step that executes `npm install` command
     - npm-install
     # A step that executes `npm test` command

@@ -23,6 +23,9 @@ coverage
 .idea
 *.iml
 
+# Configs
+tasks/config.json
+
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
