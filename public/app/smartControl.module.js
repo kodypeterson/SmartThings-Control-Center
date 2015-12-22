@@ -10,7 +10,8 @@
 
 
             // States
-            'smartControl.photoViewer'
+            'smartControl.photoViewer',
+            'smartControl.controller'
 
         ])
         .run(SmartControlRun)

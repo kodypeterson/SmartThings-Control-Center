@@ -7,6 +7,9 @@ exports.cachePhotoList = {
     frequency:     900000, // Every 15 mins
     run: function(api, params, next){
         var config = require('./config.json');
+        var request = require('request');
+        var j = request.jar();
+        request = request.defaults({jar:j});
 
         function cloudURL(path, params) {
             var domain = config.domain;
@@ -25,11 +28,20 @@ exports.cachePhotoList = {
                 '&' + param_arr.join('&') +
                 '&format=json&_=' + new Date().getTime();
         }
-        var request = require('request');
         var images = [];
         var dirQueue = [];
 
-        getDir('/DigitalPhotoFrame/');
+        login();
+
+        function login() {
+            request(cloudURL('local_login', {
+                username: config.ftpUser,
+                password: config.ftpPass
+            }),
+            function(error, response, body) {
+                getDir('/DigitalPhotoFrame/');
+            });
+        }
 
         function getDir(dir) {
             api.log('[PHOTO_CACHE] Getting \'' + dir + '\'');

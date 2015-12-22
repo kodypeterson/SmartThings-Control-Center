@@ -17,7 +17,7 @@
         });
 
     /* @ngInject */
-    function ReblSmartControlPhotoViewerCtrl($http, $timeout) {
+    function ReblSmartControlPhotoViewerCtrl($http, $timeout, $state) {
         var vm = this;
 
         var inAnimations = [
@@ -86,7 +86,7 @@
         vm.currentAnimation = outAnimations[Math.floor(Math.random() * outAnimations.length)];
 
         vm.showControls = function() {
-
+            $state.go('controller');
         };
 
         var forceImageTimeout = null;
