@@ -15,7 +15,7 @@
             if (vm.timeoutPromise !== null) {
                 $timeout.cancel(vm.timeoutPromise);
             }
-            vm.timeoutPromise = $timeout(redirectPhotoViewer, 20000);
+            //vm.timeoutPromise = $timeout(redirectPhotoViewer, 20000);
         }
 
         function redirectPhotoViewer() {
