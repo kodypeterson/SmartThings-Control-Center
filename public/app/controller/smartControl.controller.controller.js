@@ -6,16 +6,17 @@
         .controller('ReblSmartControlControllerCtrl', ReblSmartControlControllerCtrl);
 
     /* @ngInject */
-    function ReblSmartControlControllerCtrl($timeout, $state) {
+    function ReblSmartControlControllerCtrl($timeout, $state, $location) {
         var vm = this;
         vm.timeoutPromise = null;
-
 
         function resetTimeout() {
             if (vm.timeoutPromise !== null) {
                 $timeout.cancel(vm.timeoutPromise);
             }
-            vm.timeoutPromise = $timeout(redirectPhotoViewer, 20000);
+            if ($location.host() !== 'localhost') {
+                vm.timeoutPromise = $timeout(redirectPhotoViewer, 20000);
+            }
         }
 
         function redirectPhotoViewer() {
