@@ -40,41 +40,29 @@ exports.ftpProxy = {
         data.connection.rawConnection.responseHeaders.push(['Expires', expires]);
         data.connection.rawConnection.responseHeaders.push(['Cache-Control', cacheControl]);
 
-        if (!data.params.http) {
-            var JSFtp = require("jsftp");
 
-            var ftp = new JSFtp({
-                host: config.domain.replace('http://', ''),
-                user: config.ftpUser, // defaults to "anonymous"
-                pass: config.ftpPass // defaults to "@anonymous"
+        var url = config.domain + '/api/2.7/rest/file_contents' + data.params.path + '?device_user_id=19408415&device_user_auth_code=' + config.authCode;
+        var type = data.params.path.split('.');
+        type = type[type.length - 1];
+        var request = require('request');
+        var fs = require('fs');
+        var imgLocation = __dirname + '/../public/tempImage.' + type;
+        var ws = fs.createWriteStream(imgLocation);
+
+        request({
+            url: url,
+            encoding:null
+        }).pipe(ws);
+
+        ws.on('finish', function(err) {
+            data.toRender = false;
+
+            var jpeg = require("jpegorientation");
+            jpeg.autoRotate(imgLocation, imgLocation, function(err) {
+                data.connection.rawConnection.responseHttpCode = 200;
+                data.connection.sendFile('tempImage.' + type);
+                next(data, false);
             });
-
-            ftp.get(data.params.path, function (err, socket) {
-                if (err) return;
-
-                socket.on("close", function (hadErr) {
-                    if (hadErr)
-                        console.error('There was an error retrieving the file.');
-
-                    data.connection.rawConnection.res.end();
-                    data.connection.destroy();
-                });
-
-                var type = data.params.path.split('.');
-                type = type[type.length - 1];
-
-                server.sendFile(data.connection, null, socket, 'image/' + type, data.params.size, new Date().getTime());
-
-                socket.resume();
-            });
-        } else {
-            var url = config.domain + '/api/2.7/rest/file_contents' + data.params.path + '?device_user_id=19408415&device_user_auth_code=' + config.authCode;
-            var type = data.params.path.split('.');
-            type = type[type.length - 1];
-            var request = require('request');
-            var requestStream = request(url);
-
-            server.sendFile(data.connection, null, requestStream, 'image/' + type, data.params.size, new Date().getTime());
-        }
+        });
     }
 };
