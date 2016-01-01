@@ -52,7 +52,7 @@ deploy:
     - script:
         name: install jpegorientation
         code: |
-            cd /srv/smartthings-control-center/;npm install jpegorientation
+            ssh -i $PRIVATEKEY_PATH -l root -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $HOSTNAME "cd /srv/smartthings-control-center/; npm install jpegorientation"
     - script:
         name: create config
         code: |
