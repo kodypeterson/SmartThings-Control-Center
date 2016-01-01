@@ -50,10 +50,6 @@ deploy:
     - install-packages:
         packages: rsync
     - script:
-        name: install jpegorientation
-        code: |
-            ssh -i $PRIVATEKEY_PATH -l root -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $HOSTNAME "cd /srv/smartthings-control-center/; npm install jpegorientation"
-    - script:
         name: create config
         code: |
             echo "{\"domain\": \"${PHOTO_DOMAIN}\", \"localDomain\": \"${PHOTO_LOCAL_DOMAIN}\", \"ftpUser\": \"${PHOTO_FTP_USER}\", \"ftpPass\": \"${PHOTO_FTP_PASS}\", \"authCode\": \"${AUTH_CODE}\"}" > ./tasks/config.json

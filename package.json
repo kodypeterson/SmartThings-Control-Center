@@ -11,7 +11,9 @@
     "ws": "latest",
     "grunt": "latest",
     "request": "^2.67.0",
-    "jsftp": "^1.5.3"
+    "jsftp": "^1.5.3",
+    "exif-parser": "^0.1.9",
+    "lwip": "0.0.8"
   },
   "devDependencies": {
     "grunt-concurrent": "^2.0.3",
